@@ -288,7 +288,9 @@ __pycache__/
 *.xsd.cs
 
 # Nuget packages
-Scripts/jquery*
-Scripts/bootstrap*
+jquery*
+bootstrap*
+respond*
+modernizr*
 
 fonts/
