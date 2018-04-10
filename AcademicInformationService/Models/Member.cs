@@ -17,7 +17,15 @@ namespace AcademicInformationService.Models
         [Display(Name = "Date of Birth")]
         public DateTime? Birthdate { get; set; } // DoB is optional
 
-        public string Gender { get; set; }
+        public string Biography { get; set; }
+
+        public Gender Gender { get; set; }
+        public byte GenderId { get; set; }
+
+        public MembershipType MembershipType { get; set; } // Normal, Chair, Co-Chair - can easily be extended and enhanced
+
+        [Display(Name = "Membership Type")]
+        public byte MembershipTypeId { get; set; } // Entity recognises this convention and treats it as a foreign key
 
         // Contact Details
         [Required]
@@ -41,16 +49,11 @@ namespace AcademicInformationService.Models
         [Required]
         public Address HomeAddress { get; set; }
 
-        [Required]
-        public Address WorkAddress { get; set; }
-
-        public MembershipType MembershipType { get; set; } // Normal, Chair, Co-Chair - can easily be extended and enhanced
-
-        [Display(Name = "Membership Type")]
-        public byte MembershipTypeId { get; set; } // Entity recognises this convention and treats it as a foreign key
-
         [Display(Name = "Home Address")]
         public byte HomeAddressId { get; set; }
+
+        [Required]
+        public Address WorkAddress { get; set; }
 
         [Display(Name = "Work Address")]
         public byte WorkAddressId { get; set; }
