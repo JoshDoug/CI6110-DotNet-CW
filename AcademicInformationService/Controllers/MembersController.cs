@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,16 +23,22 @@ namespace AcademicInformationService.Controllers
             _context.Dispose();
         }
 
-        // GET: Member
-        public ActionResult Index()
+        // GET: Members
+        public ViewResult Index()
         {
-            return View();
+            var members = _context.Members.Include(c => c.MembershipType).ToList(); // Uses deferred execution
+            return View(members);
         }
 
-        // GET: Member/Details/5
+        // GET: Members/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var member = _context.Members.Include(m => m.MembershipType).SingleOrDefault(m => m.Id == id);
+
+            if (member == null)
+                return HttpNotFound();
+
+            return View(member);
         }
 
         public ViewResult New()
@@ -101,12 +108,6 @@ namespace AcademicInformationService.Controllers
 
             _context.SaveChanges();
             return RedirectToAction("Index", "Members");
-        }
-
-        // GET: Member/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: Member/Delete/5
