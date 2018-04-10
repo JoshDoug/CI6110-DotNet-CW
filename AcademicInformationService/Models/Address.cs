@@ -9,6 +9,8 @@ namespace AcademicInformationService.Models
     // UK Only Address - could be enhanced to work with other countries
     public class Address
     {
+        public byte Id { get; set; }
+
         [Required]
         public string Building { get; set; }
 
