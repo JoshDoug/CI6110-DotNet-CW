@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -46,16 +47,7 @@ namespace AcademicInformationService.Models
         [Display(Name = "Mobile Number")]
         public string MobileNumber { get; set; } // Don't need to be nullable as type is string
 
-        [Required]
-        public Address HomeAddress { get; set; }
-
-        [Display(Name = "Home Address")]
-        public byte HomeAddressId { get; set; }
-
-        [Required]
-        public Address WorkAddress { get; set; }
-
-        [Display(Name = "Work Address")]
-        public byte WorkAddressId { get; set; }
+        public virtual HomeAddress HomeAddress { get; set; }
+        public virtual WorkAddress WorkAddress { get; set; }
     }
 }

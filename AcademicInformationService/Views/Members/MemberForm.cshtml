@@ -5,26 +5,106 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Member</h2>
+<h2>@Model.Title</h2>
 
 @using (Html.BeginForm("Save", "Members"))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Member.Name)
-        @Html.TextBoxFor(m => m.Member.Name, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Member.Name, new {@class = "form-control"})
         @Html.ValidationMessageFor(m => m.Member.Name)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Member.Birthdate)
-        @Html.TextBoxFor(m => m.Member.Birthdate, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Member.Birthdate, "{0:d MMM yyyy}", new {@class = "form-control"})
         @Html.ValidationMessageFor(m => m.Member.Birthdate)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Member.MembershipTypeId)
-        @Html.DropDownListFor(m => m.Member.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership", new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.Member.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership", new {@class = "form-control"})
         @Html.ValidationMessageFor(m => m.Member.MembershipTypeId)
     </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Member.GenderId)
+        @Html.DropDownListFor(m => m.Member.GenderId, new SelectList(Model.Genders, "Id", "Type"), "Select Gender", new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Member.GenderId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Member.Email)
+        @Html.TextBoxFor(m => m.Member.Email, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Member.Email)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Member.HomeNumber)
+        @Html.TextBoxFor(m => m.Member.HomeNumber, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Member.HomeNumber)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Member.WorkNumber)
+        @Html.TextBoxFor(m => m.Member.WorkNumber, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Member.WorkNumber)
+    </div>
+
+    <!-- Home Address -->
+    <h3>Home Address</h3>
+    <div class="form-group">
+        @Html.LabelFor(m => m.HomeAddress.Building)
+        @Html.TextBoxFor(m => m.HomeAddress.Building, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.HomeAddress.Building)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.HomeAddress.Street)
+        @Html.TextBoxFor(m => m.HomeAddress.Street, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.HomeAddress.Street)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.HomeAddress.TownCity)
+        @Html.TextBoxFor(m => m.HomeAddress.TownCity, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.HomeAddress.TownCity)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.HomeAddress.County)
+        @Html.TextBoxFor(m => m.HomeAddress.County, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.HomeAddress.County)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.HomeAddress.Postcode)
+        @Html.TextBoxFor(m => m.HomeAddress.Postcode, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.HomeAddress.Postcode)
+    </div>
+
+    <!-- Work Address -->
+    <h3>Work Address</h3>
+    <div class="form-group">
+        @Html.LabelFor(m => m.WorkAddress.Building)
+        @Html.TextBoxFor(m => m.WorkAddress.Building, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.WorkAddress.Building)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.WorkAddress.Street)
+        @Html.TextBoxFor(m => m.WorkAddress.Street, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.WorkAddress.Street)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.WorkAddress.TownCity)
+        @Html.TextBoxFor(m => m.WorkAddress.TownCity, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.WorkAddress.TownCity)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.WorkAddress.County)
+        @Html.TextBoxFor(m => m.WorkAddress.County, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.WorkAddress.County)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.WorkAddress.Postcode)
+        @Html.TextBoxFor(m => m.WorkAddress.Postcode, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.WorkAddress.Postcode)
+    </div>
+
+
     @Html.HiddenFor(m => m.Member.Id)
+    @Html.HiddenFor(m => m.HomeAddress.AddressId)
+    @Html.HiddenFor(m => m.WorkAddress.AddressId)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }

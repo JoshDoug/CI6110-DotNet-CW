@@ -44,9 +44,11 @@ namespace AcademicInformationService.Controllers
         public ViewResult New()
         {
             var genders = _context.Genders.ToList();
+            var membershipTypes = _context.MembershipTypes.ToList();
 
             var viewModel = new MemberFormViewModel()
             {
+                MembershipTypes = membershipTypes,
                 Genders = genders
             };
 
@@ -65,7 +67,8 @@ namespace AcademicInformationService.Controllers
             var viewModel = new MemberFormViewModel()
             {
                 Member = member,
-                Genders = _context.Genders.ToList()
+                Genders = _context.Genders.ToList(),
+                MembershipTypes = _context.MembershipTypes.ToList()
             };
 
             return View("MemberForm", viewModel);
@@ -73,37 +76,40 @@ namespace AcademicInformationService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Member member)
+        public ActionResult Save(MemberFormViewModel memberFormViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                var viewModel = new MemberFormViewModel()
-                {
-                    Member = member,
-                    Genders = _context.Genders.ToList()
-                };
+            //if (!ModelState.IsValid)
+            //{
+            //    var viewModel = new MemberFormViewModel()
+            //    {
+            //        Member = memberFormViewModel.Member,
+            //        MembershipTypes = _context.MembershipTypes.ToList(),
+            //        Genders = _context.Genders.ToList()
+            //    };
 
-                return View("MemberForm", viewModel);
-            }
+            //    return View("MemberForm", viewModel);
+            //}
 
-            if (member.Id == 0)
+            if (memberFormViewModel.Member.Id == 0)
             {
-                _context.Members.Add(member);
+                memberFormViewModel.HomeAddress.Member = memberFormViewModel.Member;
+                memberFormViewModel.WorkAddress.Member = memberFormViewModel.Member;
+                _context.Members.Add(memberFormViewModel.Member);
+                _context.HomeAddresses.Add(memberFormViewModel.HomeAddress);
+                _context.WorkAddresses.Add(memberFormViewModel.WorkAddress);
             }
             else
             {
-                var memberInDb = _context.Members.Single(m => m.Id == member.Id);
-                memberInDb.Name = member.Name;
-                memberInDb.Birthdate = member.Birthdate;
-                memberInDb.Biography = member.Biography;
-                memberInDb.GenderId = member.GenderId;
-                memberInDb.MembershipTypeId = member.MembershipTypeId;
-                memberInDb.Email = member.Email;
-                memberInDb.HomeNumber = member.HomeNumber;
-                memberInDb.WorkNumber = member.WorkNumber;
-                memberInDb.MobileNumber = member.MobileNumber;
-                memberInDb.HomeAddressId = member.HomeAddressId;
-                memberInDb.WorkAddressId = member.WorkAddressId;
+                var memberInDb = _context.Members.Single(m => m.Id == memberFormViewModel.Member.Id);
+                memberInDb.Name = memberFormViewModel.Member.Name;
+                memberInDb.Birthdate = memberFormViewModel.Member.Birthdate;
+                memberInDb.Biography = memberFormViewModel.Member.Biography;
+                memberInDb.GenderId = memberFormViewModel.Member.GenderId;
+                memberInDb.MembershipTypeId = memberFormViewModel.Member.MembershipTypeId;
+                memberInDb.Email = memberFormViewModel.Member.Email;
+                memberInDb.HomeNumber = memberFormViewModel.Member.HomeNumber;
+                memberInDb.WorkNumber = memberFormViewModel.Member.WorkNumber;
+                memberInDb.MobileNumber = memberFormViewModel.Member.MobileNumber;
             }
 
             _context.SaveChanges();
@@ -122,7 +128,7 @@ namespace AcademicInformationService.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
     }

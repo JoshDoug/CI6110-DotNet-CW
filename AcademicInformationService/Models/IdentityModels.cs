@@ -23,6 +23,8 @@ namespace AcademicInformationService.Models
         public DbSet<Member> Members { get; set; }
         public DbSet<MembershipType> MembershipTypes { get; set; }
         public DbSet<Gender> Genders { get; set; }
+        public DbSet<HomeAddress> HomeAddresses { get; set; }
+        public DbSet<WorkAddress> WorkAddresses { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

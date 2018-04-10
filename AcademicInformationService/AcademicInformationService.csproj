@@ -200,14 +200,36 @@
     <Compile Include="Migrations\201804101642156_Intialise.Designer.cs">
       <DependentUpon>201804101642156_Intialise.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804101752069_WIP.cs" />
+    <Compile Include="Migrations\201804101752069_WIP.Designer.cs">
+      <DependentUpon>201804101752069_WIP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804101824595_AddMembershipType.cs" />
+    <Compile Include="Migrations\201804101824595_AddMembershipType.Designer.cs">
+      <DependentUpon>201804101824595_AddMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804101827058_AddGenders.cs" />
+    <Compile Include="Migrations\201804101827058_AddGenders.Designer.cs">
+      <DependentUpon>201804101827058_AddGenders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804101856157_AddAddress.cs" />
+    <Compile Include="Migrations\201804101856157_AddAddress.Designer.cs">
+      <DependentUpon>201804101856157_AddAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804101936470_UpdateMemberAddressRelation.cs" />
+    <Compile Include="Migrations\201804101936470_UpdateMemberAddressRelation.Designer.cs">
+      <DependentUpon>201804101936470_UpdateMemberAddressRelation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\HomeAddress.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\WorkAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\MemberFormViewModel.cs" />
@@ -292,6 +314,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804101642156_Intialise.resx">
       <DependentUpon>201804101642156_Intialise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804101752069_WIP.resx">
+      <DependentUpon>201804101752069_WIP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804101824595_AddMembershipType.resx">
+      <DependentUpon>201804101824595_AddMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804101827058_AddGenders.resx">
+      <DependentUpon>201804101827058_AddGenders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804101856157_AddAddress.resx">
+      <DependentUpon>201804101856157_AddAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804101936470_UpdateMemberAddressRelation.resx">
+      <DependentUpon>201804101936470_UpdateMemberAddressRelation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
