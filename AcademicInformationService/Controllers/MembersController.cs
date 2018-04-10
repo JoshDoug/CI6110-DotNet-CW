@@ -33,7 +33,7 @@ namespace AcademicInformationService.Controllers
         // GET: Members/Details/5
         public ActionResult Details(int id)
         {
-            var member = _context.Members.Include(m => m.MembershipType).SingleOrDefault(m => m.Id == id);
+            var member = _context.Members.Include(m => m.MembershipType).SingleOrDefault(m => m.MemberId == id);
 
             if (member == null)
                 return HttpNotFound();
@@ -57,7 +57,7 @@ namespace AcademicInformationService.Controllers
 
         public ActionResult Edit(int id)
         {
-            var member = _context.Members.SingleOrDefault(m => m.Id == id);
+            var member = _context.Members.SingleOrDefault(m => m.MemberId == id);
 
             if (member == null)
             {
@@ -68,7 +68,9 @@ namespace AcademicInformationService.Controllers
             {
                 Member = member,
                 Genders = _context.Genders.ToList(),
-                MembershipTypes = _context.MembershipTypes.ToList()
+                MembershipTypes = _context.MembershipTypes.ToList(),
+                HomeAddress = member.HomeAddress,
+                WorkAddress = member.WorkAddress
             };
 
             return View("MemberForm", viewModel);
@@ -78,29 +80,27 @@ namespace AcademicInformationService.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Save(MemberFormViewModel memberFormViewModel)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    var viewModel = new MemberFormViewModel()
-            //    {
-            //        Member = memberFormViewModel.Member,
-            //        MembershipTypes = _context.MembershipTypes.ToList(),
-            //        Genders = _context.Genders.ToList()
-            //    };
+//            if (!ModelState.IsValid)
+//            {
+//                var viewModel = new MemberFormViewModel()
+//                {
+//                    Member = memberFormViewModel.Member,
+//                    MembershipTypes = _context.MembershipTypes.ToList(),
+//                    Genders = _context.Genders.ToList()
+//                };
+//
+//                return View("MemberForm", viewModel);
+//            }
 
-            //    return View("MemberForm", viewModel);
-            //}
-
-            if (memberFormViewModel.Member.Id == 0)
+            if (memberFormViewModel.Member.MemberId == 0)
             {
-                memberFormViewModel.HomeAddress.Member = memberFormViewModel.Member;
-                memberFormViewModel.WorkAddress.Member = memberFormViewModel.Member;
+                memberFormViewModel.Member.HomeAddress = memberFormViewModel.HomeAddress;
+                memberFormViewModel.Member.WorkAddress = memberFormViewModel.WorkAddress;
                 _context.Members.Add(memberFormViewModel.Member);
-                _context.HomeAddresses.Add(memberFormViewModel.HomeAddress);
-                _context.WorkAddresses.Add(memberFormViewModel.WorkAddress);
             }
             else
             {
-                var memberInDb = _context.Members.Single(m => m.Id == memberFormViewModel.Member.Id);
+                var memberInDb = _context.Members.Single(m => m.MemberId == memberFormViewModel.Member.MemberId);
                 memberInDb.Name = memberFormViewModel.Member.Name;
                 memberInDb.Birthdate = memberFormViewModel.Member.Birthdate;
                 memberInDb.Biography = memberFormViewModel.Member.Biography;
@@ -110,6 +110,20 @@ namespace AcademicInformationService.Controllers
                 memberInDb.HomeNumber = memberFormViewModel.Member.HomeNumber;
                 memberInDb.WorkNumber = memberFormViewModel.Member.WorkNumber;
                 memberInDb.MobileNumber = memberFormViewModel.Member.MobileNumber;
+                var homeAddressInDb =
+                    _context.HomeAddresses.Single(h => h.MemberId == memberFormViewModel.Member.MemberId); // Would ideally farm this out to a function
+                homeAddressInDb.Building = memberFormViewModel.HomeAddress.Building;
+                homeAddressInDb.Street = memberFormViewModel.HomeAddress.Street;
+                homeAddressInDb.TownCity = memberFormViewModel.HomeAddress.TownCity;
+                homeAddressInDb.County = memberFormViewModel.HomeAddress.County;
+                homeAddressInDb.Postcode = memberFormViewModel.HomeAddress.Postcode;
+                var workAddressInDb =
+                    _context.WorkAddresses.Single(w => w.MemberId == memberFormViewModel.Member.MemberId);
+                workAddressInDb.Building = memberFormViewModel.HomeAddress.Building;
+                workAddressInDb.Street = memberFormViewModel.HomeAddress.Street;
+                workAddressInDb.TownCity = memberFormViewModel.HomeAddress.TownCity;
+                workAddressInDb.County = memberFormViewModel.HomeAddress.County;
+                workAddressInDb.Postcode = memberFormViewModel.HomeAddress.Postcode;
             }
 
             _context.SaveChanges();

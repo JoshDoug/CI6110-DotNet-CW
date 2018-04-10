@@ -9,7 +9,7 @@ namespace AcademicInformationService.Models
 {
     public class Member
     {
-        public int Id { get; set; }
+        public int MemberId { get; set; }
 
         [Required]
         [StringLength(255)]

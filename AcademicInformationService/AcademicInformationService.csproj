@@ -220,6 +220,30 @@
     <Compile Include="Migrations\201804101936470_UpdateMemberAddressRelation.Designer.cs">
       <DependentUpon>201804101936470_UpdateMemberAddressRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804102025108_UpdateAddresses.cs" />
+    <Compile Include="Migrations\201804102025108_UpdateAddresses.Designer.cs">
+      <DependentUpon>201804102025108_UpdateAddresses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804102041386_ChangeAddressIdColumnNames.cs" />
+    <Compile Include="Migrations\201804102041386_ChangeAddressIdColumnNames.Designer.cs">
+      <DependentUpon>201804102041386_ChangeAddressIdColumnNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804102056240_ChangeAddressIdColumnNamesAgain.cs" />
+    <Compile Include="Migrations\201804102056240_ChangeAddressIdColumnNamesAgain.Designer.cs">
+      <DependentUpon>201804102056240_ChangeAddressIdColumnNamesAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804102106011_ChangeMemberIdType.cs" />
+    <Compile Include="Migrations\201804102106011_ChangeMemberIdType.Designer.cs">
+      <DependentUpon>201804102106011_ChangeMemberIdType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804102128565_WIPP.cs" />
+    <Compile Include="Migrations\201804102128565_WIPP.Designer.cs">
+      <DependentUpon>201804102128565_WIPP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804102131209_AddTablesBack.cs" />
+    <Compile Include="Migrations\201804102131209_AddTablesBack.Designer.cs">
+      <DependentUpon>201804102131209_AddTablesBack.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -329,6 +353,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804101936470_UpdateMemberAddressRelation.resx">
       <DependentUpon>201804101936470_UpdateMemberAddressRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102025108_UpdateAddresses.resx">
+      <DependentUpon>201804102025108_UpdateAddresses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102041386_ChangeAddressIdColumnNames.resx">
+      <DependentUpon>201804102041386_ChangeAddressIdColumnNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102056240_ChangeAddressIdColumnNamesAgain.resx">
+      <DependentUpon>201804102056240_ChangeAddressIdColumnNamesAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102106011_ChangeMemberIdType.resx">
+      <DependentUpon>201804102106011_ChangeMemberIdType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102128565_WIPP.resx">
+      <DependentUpon>201804102128565_WIPP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102131209_AddTablesBack.resx">
+      <DependentUpon>201804102131209_AddTablesBack.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

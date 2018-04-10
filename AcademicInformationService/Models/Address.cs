@@ -10,10 +10,6 @@ namespace AcademicInformationService.Models
     // UK Only Address - could be enhanced to work with other countries
     public class Address
     {
-        public byte AddressId { get; set; }
-
-        //public string Type { get; set; }
-
         [Required]
         public string Building { get; set; }
 

@@ -18,7 +18,7 @@ namespace AcademicInformationService.ViewModel
         {
             get
             {
-                if (Member != null && Member.Id != 0)
+                if (Member != null && Member.MemberId != 0)
                     return "Edit Member";
 
                 return "New Member";
