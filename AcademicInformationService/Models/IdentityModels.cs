@@ -20,6 +20,10 @@ namespace AcademicInformationService.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Member> Members { get; set; }
+        public DbSet<MembershipType> MembershipTypes { get; set; }
+        public DbSet<Gender> Genders { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
