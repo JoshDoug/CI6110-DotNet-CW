@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,7 +28,11 @@ namespace AcademicInformationService.Controllers
         public ViewResult Index()
         {
             var members = _context.Members.Include(c => c.MembershipType).ToList(); // Uses deferred execution
-            return View(members);
+
+            if (User.IsInRole("Administrator"))
+                return View("Index", members);
+
+            return View("ReadOnlyIndex", members);
         }
 
         // GET: Members/Details/5
@@ -112,7 +117,9 @@ namespace AcademicInformationService.Controllers
                 memberInDb.MobileNumber = memberFormViewModel.Member.MobileNumber;
                 var homeAddressInDb =
                     _context.HomeAddresses.Single(h =>
-                        h.MemberId == memberFormViewModel.Member.MemberId); // Would ideally farm this out to a function, using ViewModel stops TryUpdateModel from working
+                        h.MemberId ==
+                        memberFormViewModel.Member
+                            .MemberId); // Would ideally farm this out to a function, using ViewModel stops TryUpdateModel from working
                 homeAddressInDb.Building = memberFormViewModel.HomeAddress.Building;
                 homeAddressInDb.Street = memberFormViewModel.HomeAddress.Street;
                 homeAddressInDb.TownCity = memberFormViewModel.HomeAddress.TownCity;
@@ -134,7 +141,8 @@ namespace AcademicInformationService.Controllers
         // POST: Members/Delete/5
         public ActionResult Delete(int id)
         {
-            var homeAddress = _context.HomeAddresses.SingleOrDefault(h => h.MemberId == id); // Should be possible with a cascade?
+            var homeAddress =
+                _context.HomeAddresses.SingleOrDefault(h => h.MemberId == id); // Should be possible with a cascade?
             var workAddress = _context.WorkAddresses.SingleOrDefault(w => w.MemberId == id);
             var member = _context.Members.SingleOrDefault(m => m.MemberId == id);
 

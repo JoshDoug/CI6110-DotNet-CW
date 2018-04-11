@@ -1,0 +1,29 @@
+﻿@model IEnumerable<AcademicInformationService.Models.Event>
+@{
+    ViewBag.Title = "Events";
+    //    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Members</h2>
+@if (!Model.Any())
+{
+    <p>We don't have any events yet.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Event</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var eventObj in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(eventObj.Name, "Details", "Events", new {id = eventObj.EventId}, null)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

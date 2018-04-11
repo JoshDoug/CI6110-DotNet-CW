@@ -23,7 +23,10 @@ namespace AcademicInformationService.Controllers
         public ActionResult Index()
         {
             var reports = _context.Reports.ToList();
-            return View(reports);
+            if (User.IsInRole("Administrator"))
+                return View("Index", reports);
+
+            return View("ReadOnlyIndex", reports);
         }
 
         // GET: Reports/Details/5
@@ -96,7 +99,8 @@ namespace AcademicInformationService.Controllers
         {
             if (reportFormViewModel.Report.ReportId == 0)
             {
-                reportFormViewModel.Report.Members = _context.Members.Where(m => reportFormViewModel.SelectedMembers.Contains(m.MemberId)).ToList();
+                reportFormViewModel.Report.Members = _context.Members
+                    .Where(m => reportFormViewModel.SelectedMembers.Contains(m.MemberId)).ToList();
                 _context.Reports.Add(reportFormViewModel.Report);
             }
             else
@@ -107,10 +111,13 @@ namespace AcademicInformationService.Controllers
                 reportInDb.Abstract = reportFormViewModel.Report.Abstract;
                 reportInDb.ReportText = reportFormViewModel.Report.ReportText;
 
-                var updatedReportMembers = _context.Members.Where(m => reportFormViewModel.SelectedMembers.Contains(m.MemberId)).ToList();
-                reportInDb.Members.Clear(); // Might be a more efficient way to do this but manually comparing causes a DataReader exception
+                var updatedReportMembers = _context.Members
+                    .Where(m => reportFormViewModel.SelectedMembers.Contains(m.MemberId)).ToList();
+                reportInDb.Members
+                    .Clear(); // Might be a more efficient way to do this but manually comparing causes a DataReader exception
                 reportInDb.Members = updatedReportMembers;
             }
+
             _context.SaveChanges();
             return RedirectToAction("Index", "Reports");
         }

@@ -26,7 +26,10 @@ namespace AcademicInformationService.Controllers
         public ActionResult Index()
         {
             var events = _context.Events.ToList();
-            return View(events);
+            if (User.IsInRole("Administrator"))
+                return View("Index", events);
+
+            return View("ReadOnlyIndex", events);
         }
 
         // GET: Events/Details/5
@@ -56,17 +59,18 @@ namespace AcademicInformationService.Controllers
                 EventLocation = eventObj.EventLocation,
                 AllMembers = members.Select(m => new SelectListItem
                 {
-                Text = m.Name,
-                Value = m.MemberId.ToString()
-            })
+                    Text = m.Name,
+                    Value = m.MemberId.ToString()
+                })
             };
 
             return View("EventForm", viewModel);
         }
-        
+
         public ActionResult Delete(int id)
         {
-            var eventLocation = _context.EventLocations.SingleOrDefault(e => e.EventId == id); // Should be possible with a cascade?
+            var eventLocation =
+                _context.EventLocations.SingleOrDefault(e => e.EventId == id); // Should be possible with a cascade?
             var eventObj = _context.Events.SingleOrDefault(e => e.EventId == id);
 
             if (eventObj == null)
@@ -103,7 +107,8 @@ namespace AcademicInformationService.Controllers
             if (eventFormViewModel.Event.EventId == 0)
             {
                 eventFormViewModel.Event.EventLocation = eventFormViewModel.EventLocation;
-                eventFormViewModel.Event.Members = _context.Members.Where(m => eventFormViewModel.SelectedMembers.Contains(m.MemberId)).ToList();
+                eventFormViewModel.Event.Members = _context.Members
+                    .Where(m => eventFormViewModel.SelectedMembers.Contains(m.MemberId)).ToList();
                 _context.Events.Add(eventFormViewModel.Event);
             }
             else
@@ -112,18 +117,22 @@ namespace AcademicInformationService.Controllers
                 eventInDb.Name = eventFormViewModel.Event.Name;
                 eventInDb.EventDate = eventFormViewModel.Event.EventDate;
                 eventInDb.Description = eventFormViewModel.Event.Description;
-               
-                var eventLocationInDb = _context.EventLocations.Single(e => e.EventId == eventFormViewModel.Event.EventId);
+
+                var eventLocationInDb =
+                    _context.EventLocations.Single(e => e.EventId == eventFormViewModel.Event.EventId);
                 eventLocationInDb.Building = eventFormViewModel.EventLocation.Building;
                 eventLocationInDb.Street = eventFormViewModel.EventLocation.Street;
                 eventLocationInDb.TownCity = eventFormViewModel.EventLocation.TownCity;
                 eventLocationInDb.County = eventFormViewModel.EventLocation.County;
                 eventLocationInDb.Postcode = eventFormViewModel.EventLocation.Postcode;
 
-                var updatedEventMembers = _context.Members.Where(m => eventFormViewModel.SelectedMembers.Contains(m.MemberId)).ToList();
-                eventInDb.Members.Clear(); // Might be a more efficient way to do this but manually comparing causes a DataReader exception
+                var updatedEventMembers = _context.Members
+                    .Where(m => eventFormViewModel.SelectedMembers.Contains(m.MemberId)).ToList();
+                eventInDb.Members
+                    .Clear(); // Might be a more efficient way to do this but manually comparing causes a DataReader exception
                 eventInDb.Members = updatedEventMembers;
             }
+
             _context.SaveChanges();
             return RedirectToAction("Index", "Events");
         }

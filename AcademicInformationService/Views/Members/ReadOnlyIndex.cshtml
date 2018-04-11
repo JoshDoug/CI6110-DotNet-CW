@@ -1,0 +1,29 @@
+﻿@model IEnumerable<AcademicInformationService.Models.Member>
+@{
+    ViewBag.Title = "Members";
+    //    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Members</h2>
+@if (!Model.Any())
+{
+    <p>We don't have any members yet.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Member</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(member.Name, "Details", "Members", new { id = member.MemberId }, null)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

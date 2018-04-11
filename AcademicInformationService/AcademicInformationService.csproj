@@ -343,6 +343,9 @@
     <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\Reports\ReportForm.cshtml" />
     <Content Include="Views\Reports\Details.cshtml" />
+    <Content Include="Views\Reports\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Members\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Events\ReadOnlyIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
