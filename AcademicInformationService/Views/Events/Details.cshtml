@@ -1,0 +1,30 @@
+﻿@model AcademicInformationService.Models.Event
+
+@{
+    ViewBag.Title = "Details";
+    //    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+<ul>
+    <li>Date: @Model.EventDate.ToShortDateString()</li>
+    <li>Event Description: @Model.Description</li>
+</ul>
+<h3>Event Location</h3>
+<ul>
+    <li>@Model.EventLocation.Building</li>
+    <li>@Model.EventLocation.Street</li>
+    <li>@Model.EventLocation.TownCity</li>
+    <li>@Model.EventLocation.County</li>
+    <li>@Model.EventLocation.Postcode</li>
+</ul>
+@if (Model.Members.Count > 0)
+{
+    <h3>Associated Members</h3>
+    <ul>
+        @foreach (var member in Model.Members)
+        {
+        <li>@member.Name</li>
+        }
+    </ul>
+}
