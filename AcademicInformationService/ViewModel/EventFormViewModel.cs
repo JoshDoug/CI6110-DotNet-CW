@@ -22,14 +22,14 @@ namespace AcademicInformationService.ViewModel
                 if (_selectedMembers == null) // Try with a check for Event being null?
                 {
                     _selectedMembers = new List<int>();
-//                    try
-//                    {
-//                        _selectedMembers = Event.Members.Select(m => m.MemberId).ToList();
-//                    }
-//                    catch (Exception)
-//                    {
-//                        // This should only get hit when using new - try and figure out alternative
-//                    }
+                    try
+                    {
+                        _selectedMembers = Event.Members.Select(m => m.MemberId).ToList();
+                    }
+                    catch (Exception)
+                    {
+                        // This should only get hit when using new - try and figure out alternative
+                    }
                 }
 
                 return _selectedMembers;
