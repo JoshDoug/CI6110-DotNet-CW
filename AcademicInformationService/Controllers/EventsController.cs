@@ -8,6 +8,7 @@ using AcademicInformationService.ViewModel;
 
 namespace AcademicInformationService.Controllers
 {
+    [Authorize]
     public class EventsController : Controller
     {
         private ApplicationDbContext _context;
@@ -23,6 +24,7 @@ namespace AcademicInformationService.Controllers
         }
 
         // GET: Events
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var events = _context.Events.ToList();
@@ -33,6 +35,7 @@ namespace AcademicInformationService.Controllers
         }
 
         // GET: Events/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             var eventObj = _context.Events.SingleOrDefault(e => e.EventId == id);

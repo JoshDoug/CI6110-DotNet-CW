@@ -5,6 +5,7 @@ using AcademicInformationService.ViewModel;
 
 namespace AcademicInformationService.Controllers
 {
+    [Authorize]
     public class ReportsController : Controller
     {
         private ApplicationDbContext _context;
@@ -20,6 +21,7 @@ namespace AcademicInformationService.Controllers
         }
 
         // GET: Reports
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var reports = _context.Reports.ToList();
@@ -30,6 +32,7 @@ namespace AcademicInformationService.Controllers
         }
 
         // GET: Reports/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             var report = _context.Reports.SingleOrDefault(r => r.ReportId == id);

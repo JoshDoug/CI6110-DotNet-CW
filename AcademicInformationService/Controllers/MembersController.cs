@@ -10,6 +10,7 @@ using AcademicInformationService.ViewModel;
 
 namespace AcademicInformationService.Controllers
 {
+    [Authorize]
     public class MembersController : Controller
     {
         private ApplicationDbContext _context;
@@ -25,6 +26,7 @@ namespace AcademicInformationService.Controllers
         }
 
         // GET: Members
+        [AllowAnonymous]
         public ViewResult Index()
         {
             var members = _context.Members.Include(c => c.MembershipType).ToList(); // Uses deferred execution
@@ -36,6 +38,7 @@ namespace AcademicInformationService.Controllers
         }
 
         // GET: Members/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             var member = _context.Members.Include(m => m.MembershipType).SingleOrDefault(m => m.MemberId == id);
