@@ -1,0 +1,23 @@
+﻿@model AcademicInformationService.Models.Report
+
+@{
+    ViewBag.Title = "Report Details";
+    //    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+<ul>
+    <li>Date: @Model.ReportDate.ToShortDateString()</li>
+    <li>Report Abstract: @Model.Abstract</li>
+    <li>Report: @Model.ReportText</li>
+</ul>
+@if (Model.Members.Count > 0)
+{
+    <h3>Associated Members</h3>
+    <ul>
+        @foreach (var member in Model.Members)
+        {
+            <li>@member.Name</li>
+        }
+    </ul>
+}

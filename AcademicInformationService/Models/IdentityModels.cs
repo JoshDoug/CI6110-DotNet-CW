@@ -27,6 +27,7 @@ namespace AcademicInformationService.Models
         public DbSet<WorkAddress> WorkAddresses { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<EventLocation> EventLocations { get; set; }
+        public DbSet<Report> Reports { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

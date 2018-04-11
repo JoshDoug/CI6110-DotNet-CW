@@ -1,0 +1,47 @@
+﻿@model AcademicInformationService.ViewModel.ReportFormViewModel
+@{
+    ViewBag.Title = "ReportForm";
+    //    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Title</h2>
+
+@using (Html.BeginForm("Save", "Reports"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Report.Name)
+        @Html.TextBoxFor(m => m.Report.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Report.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Report.ReportDate)
+        @Html.TextBoxFor(m => m.Report.ReportDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Report.ReportDate)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Report.Abstract)
+        @Html.TextBoxFor(m => m.Report.Abstract, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Report.Abstract)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Report.ReportText)
+        @Html.TextBoxFor(m => m.Report.ReportText, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Report.ReportText)
+    </div>
+
+    <!-- Associated Members -->
+    <h3>Associated Members</h3>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Report.Members)
+        @Html.ListBoxFor(m => m.SelectedMembers, Model.AllMembers)
+    </div>
+    
+    @Html.HiddenFor(m => m.Report.ReportId)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<AcademicInformationService.Models.Report>
+@{
+    ViewBag.Title = "Reports";
+    //    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Members</h2>
+<p>@Html.ActionLink("New Report", "New", "Reports", null, new {@class = "btn btn-primary"})</p>
+
+@if (!Model.Any())
+{
+    <p>We don't have any reports yet.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Report</th>
+            <th>Delete Report</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var report in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(report.Name, "Edit", "Reports", new {id = report.ReportId}, null)</td>
+                <td>@Html.ActionLink("Delete", "Delete", "Reports", new {id = report.ReportId}, null)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
