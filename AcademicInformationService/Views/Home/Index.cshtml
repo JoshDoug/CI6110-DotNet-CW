@@ -17,4 +17,11 @@
             <p>@Html.ActionLink(member.Name, "Details", "Members", new {id = member.MemberId}, null)</p>
         </div>
     }
+    @if (User.IsInRole("Administrator"))
+    {
+        <div class="col-md-4">
+            <h2>Register Admin</h2>
+            <p>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new {id = "registerLink"})</p>
+        </div>
+    }
 </div>
