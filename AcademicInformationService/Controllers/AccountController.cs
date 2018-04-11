@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AcademicInformationService.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AcademicInformationService.Controllers
 {
@@ -155,6 +156,14 @@ namespace AcademicInformationService.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // Setup Admin user - currently only allow Admin users to be registered, and requires an original admin being logged in to register another admin
+                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    // While it might make sense to name the role with the capabilities of the role, there's little scope for many additional roles being added should this application
+                    // be hypothetically extended and ehanced
+                    await roleManager.CreateAsync(new IdentityRole("Administrator")); // Default admin has password of Password1! - should of course be changed when deployed
+                    await UserManager.AddToRoleAsync(user.Id, "Administrator");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
