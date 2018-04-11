@@ -30,7 +30,7 @@ namespace AcademicInformationService.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Academic Information Service About Page.";
 
             return View();
         }
