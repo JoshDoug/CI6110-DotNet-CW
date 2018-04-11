@@ -20,7 +20,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Event.Description)
-        @Html.TextBoxFor(m => m.Event.Description, new { @class = "form-control" })
+        @Html.TextAreaFor(m => m.Event.Description, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Event.Description)
     </div>
 
