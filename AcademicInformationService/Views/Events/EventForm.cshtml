@@ -1,0 +1,76 @@
+﻿@model AcademicInformationService.ViewModel.EventFormViewModel
+@{
+    ViewBag.Title = "EventForm";
+    //    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Title</h2>
+
+@using (Html.BeginForm("Save", "Events"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Event.Name)
+        @Html.TextBoxFor(m => m.Event.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Event.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Event.EventDate)
+        @Html.TextBoxFor(m => m.Event.EventDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Event.EventDate)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Event.Description)
+        @Html.TextBoxFor(m => m.Event.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Event.Description)
+    </div>
+
+    <!-- Associated Members -->
+    <h3>Associated Members</h3>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Event.Members)
+        @Html.ListBoxFor(m => m.SelectedMembers, Model.AllMembers)
+        @*@Html.LabelFor(m => m.AllMembers, "Members")*@
+        @*@Html.ListBox("MemberId", new SelectList(Model.AllMembers, "MemberId", "Name"))*@
+        @*@Html.ListBoxFor(m => m.AllMembers, Model.AllMembers)*@
+        @*@Html.ValidationMessageFor(m => m.Event.Members)*@
+    </div>
+
+
+    <!-- Event Location -->
+    <h3>Event Location</h3>
+    <div class="form-group">
+        @Html.LabelFor(m => m.EventLocation.Building)
+        @Html.TextBoxFor(m => m.EventLocation.Building, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.EventLocation.Building)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.EventLocation.Street)
+        @Html.TextBoxFor(m => m.EventLocation.Street, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.EventLocation.Street)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.EventLocation.TownCity)
+        @Html.TextBoxFor(m => m.EventLocation.TownCity, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.EventLocation.TownCity)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.EventLocation.County)
+        @Html.TextBoxFor(m => m.EventLocation.County, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.EventLocation.County)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.EventLocation.Postcode)
+        @Html.TextBoxFor(m => m.EventLocation.Postcode, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.EventLocation.Postcode)
+    </div>
+
+    @Html.HiddenFor(m => m.Event.EventId)
+    @Html.HiddenFor(m => m.EventLocation.EventId)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

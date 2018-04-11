@@ -9,6 +9,11 @@ namespace AcademicInformationService.Models
 {
     public class Member
     {
+        public Member()
+        {
+            Events = new HashSet<Event>();
+        }
+
         public int MemberId { get; set; }
 
         [Required]
@@ -49,5 +54,6 @@ namespace AcademicInformationService.Models
 
         public virtual HomeAddress HomeAddress { get; set; }
         public virtual WorkAddress WorkAddress { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

@@ -111,7 +111,8 @@ namespace AcademicInformationService.Controllers
                 memberInDb.WorkNumber = memberFormViewModel.Member.WorkNumber;
                 memberInDb.MobileNumber = memberFormViewModel.Member.MobileNumber;
                 var homeAddressInDb =
-                    _context.HomeAddresses.Single(h => h.MemberId == memberFormViewModel.Member.MemberId); // Would ideally farm this out to a function
+                    _context.HomeAddresses.Single(h =>
+                        h.MemberId == memberFormViewModel.Member.MemberId); // Would ideally farm this out to a function, using ViewModel stops TryUpdateModel from working
                 homeAddressInDb.Building = memberFormViewModel.HomeAddress.Building;
                 homeAddressInDb.Street = memberFormViewModel.HomeAddress.Street;
                 homeAddressInDb.TownCity = memberFormViewModel.HomeAddress.TownCity;
@@ -130,20 +131,23 @@ namespace AcademicInformationService.Controllers
             return RedirectToAction("Index", "Members");
         }
 
-        // POST: Member/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: Members/Delete/5
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            var homeAddress = _context.HomeAddresses.SingleOrDefault(h => h.MemberId == id); // Should be possible with a cascade?
+            var workAddress = _context.WorkAddresses.SingleOrDefault(w => w.MemberId == id);
+            var member = _context.Members.SingleOrDefault(m => m.MemberId == id);
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (member == null)
             {
-                return RedirectToAction("Index");
+                return HttpNotFound();
             }
+
+            _context.HomeAddresses.Remove(homeAddress);
+            _context.WorkAddresses.Remove(workAddress);
+            _context.Members.Remove(member);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

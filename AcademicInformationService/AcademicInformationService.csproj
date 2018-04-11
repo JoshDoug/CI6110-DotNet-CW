@@ -190,6 +190,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
@@ -244,9 +245,15 @@
     <Compile Include="Migrations\201804102131209_AddTablesBack.Designer.cs">
       <DependentUpon>201804102131209_AddTablesBack.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804102319324_AddEvents.cs" />
+    <Compile Include="Migrations\201804102319324_AddEvents.Designer.cs">
+      <DependentUpon>201804102319324_AddEvents.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\EventLocation.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\HomeAddress.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -256,6 +263,7 @@
     <Compile Include="Models\WorkAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\EventFormViewModel.cs" />
     <Compile Include="ViewModel\MemberFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -318,6 +326,8 @@
     <Content Include="Views\Members\MemberForm.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Members\Details.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Events\EventForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -371,6 +381,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804102131209_AddTablesBack.resx">
       <DependentUpon>201804102131209_AddTablesBack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102319324_AddEvents.resx">
+      <DependentUpon>201804102319324_AddEvents.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
